@@ -19,3 +19,5 @@ Route::get('/', function () {
 });
 
 Route::get('/showAllMember', [CustomerController::class, 'show_all']);
+Route::get('/showNames', [CustomerController::class, 'show_names']);
+Route::get('/showDeleteFirst', [CustomerController::class, 'delete_first']);

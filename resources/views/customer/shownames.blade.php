@@ -10,8 +10,7 @@
     <ol>
        @foreach($user as $customers)
              <li>
-                {{ $customers->first_name}} <span style="text-transform:uppercase">{{ $customers->middle_init}}.</span>   {{ $customers->last_name }} 
-                {{ $customers->gender }} {{ $customers->address }} --- <h6>age</h6> {{ $customers->age }}     
+                {{ $customers->first_name}} <span style="text-transform:uppercase">{{ $customers->middle_init}}.</span>   {{ $customers->last_name }}     
              </li>
          @endforeach
     </ol>
