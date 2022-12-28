@@ -8,26 +8,48 @@ use Illuminate\Support\Facades\DB;
 
 class CustomerController extends Controller
 {
-
-    public function show_all(){
-        $persons = Customer::all();
-        return view('customer.persons', ['user' => $persons]);
+    
+    public function index()
+    {
+        $customers = Customer::all();
+        return view ('customer.index')->with('customers', $customers);
     }
-
-    public function show_names(){
-        $persons = DB::table('customers')
-            ->select('first_name', 'middle_init', 'last_name')
-            ->get();
-        return view('customer.shownames', ['user' => $persons]);
+    
+    public function create()
+    {
+        return view('customer.create');
     }
-
-
-    //unfinished cause I can't display the deleted customer
-    public function delete_first(){
-        $deleted = DB::table('customers')
-            ->select('first_name', 'middle_init', 'last_name')
-            ->where('age', '<', 60)
-            ->delete();
-        return view('customer.deletefirst', ['user' => $deleted]);
+  
+    public function store(Request $request)
+    {
+        $input = $request->all();
+        Customer::create($input);
+        return redirect('customers')->with('flash_message', 'New Customer Addedd!');  
+    }
+    
+    public function show($id)
+    {
+        $customer = Customer::find($id);
+        return view('customer.show')->with('customers', $customer);
+    }
+    
+    public function edit($id)
+    {
+        $customer = Customer::find($id);
+        return view('customer.edit')->with('customers', $customer);
+    }
+  
+    public function update(Request $request, $id)
+    {
+        $customer = Customer::find($id);
+        $input = $request->all();
+        $customer->update($input);
+        return redirect('customer')->with('flash_message', 'customer Updated!');  
+    }
+  
+    public function destroy($id)
+    {
+        Customer::destroy($id);
+        return redirect('customer')->with('flash_message', 'customer deleted!');  
     }
 }
